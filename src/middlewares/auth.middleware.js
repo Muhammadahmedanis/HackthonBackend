@@ -2,9 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
-import { responseMessages } from "../constant/responseMessages.js";
 import { User } from "../models/user.model.js";
-const { UNAUTHORIZED_REQUEST, INVALID_TOKEN } = responseMessages
 
 export const verifyJwt = asyncHandler(async (req, _, next) => {
     
