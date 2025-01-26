@@ -5,7 +5,7 @@ import { app } from './app.js';
 // Load environment variables
 dotenv.config({ path: "./.env" });
 
-const PORT = 4000;
+const PORT = process.env.PORT|| 4000;
 
 // Database Connection and Server Start
 
