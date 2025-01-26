@@ -12,7 +12,8 @@ export const createUser = async (req, res) => {
             visit,
             userId,
         });
-
+        console.log("ok");
+        
         await user.save();
         res.status(201).json({ success: true, message: "User created successfully", user });
     } catch (error) {
@@ -29,6 +30,21 @@ export const getAllUsers = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+export const visitUser = async (req, res) => {
+    const { userId } = req.body;
+    
+    try {
+        const user = await User.find({userId});
+        
+        if(!user){
+            return res.status(400).send({success: false, message: error.message});
+        }
+        return res.status(200).send({success: true, user})
+    } catch (error) {
+        return res.status(500).send({success: false, message: error.message});
+    }
+}
 
 // Get a user by ID
 export const getUserById = async (req, res) => {

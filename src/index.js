@@ -5,9 +5,10 @@ import { app } from './app.js';
 // Load environment variables
 dotenv.config({ path: "./.env" });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 4000;
 
 // Database Connection and Server Start
+
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
