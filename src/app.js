@@ -22,7 +22,7 @@ app.use(helmet());
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Welcome to My Page");
+  res.send("Welcome to My Page")
 })
 app.use("/api/v1/user", userRouter);
 
