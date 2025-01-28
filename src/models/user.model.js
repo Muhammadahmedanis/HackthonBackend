@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
-        Cnic: {
+        cnic: {
             type: String,
             required: true,
         },
@@ -21,16 +21,27 @@ const userSchema = new mongoose.Schema(
             type: String,
             default: "",
         },
-        visit: {
-            type: String,
+        purpose: {
+            type: [String],  // Store multiple purposes in an array
+            default: [],
         },
-        userId: {
+        tokenId: {
             type: String,
             unique: true,
         },
+        visit:{
+            type: Date,
+            default: Date.now,
+        },
+        lastVisit: {
+            type: [Date],
+            default: function () {
+              return [new Date()]; // Initialize with the current date
+            },
+        },
         status: {
-            type: String, 
-            enum: ["pending", "completed"], 
+            type: [String], 
+            enum: ["pending", "completed", "rejected"], 
             default: "pending",
         },
         
@@ -38,12 +49,14 @@ const userSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-// Pre-save middleware to generate a unique userId if not provided
+// Pre-save middleware to generate a unique tokenId if not provided
 userSchema.pre("save", function (next) {
-    if (!this.userId) {
-        this.userId = this._id.toString(); // Use MongoDB's _id as the userId
+    if (this.isModified("status")) {
+        return next()
+    }else{
+        this.tokenId = Math.floor(Math.random() * 900000) + 10000000 // Use MongoDB's ObjectId to generate a unique tokenId
+        next();
     }
-    next();
 });
 
 export const User = mongoose.model("User", userSchema);
