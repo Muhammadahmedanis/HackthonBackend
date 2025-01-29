@@ -26,19 +26,8 @@ export const createStaff = async (req, res) => {
 
 
 //get staff by designation
-export const getStaffByDesignation = async (req, res) => {
+export const getStaffByDesignation = async ( _, res) => {
     try {
-        const {userId, designation} = req.body.payload;
-        if(!userId || !designation){
-            return req.status(400).send({success: false, message: "missing field"});
-        }
-        
-        const findUserDesigntion = await Staff.findOne({userId});
-        
-        if(findUserDesigntion.designation !== designation){
-            return res.status(400).json({success: false, message: "Invalid userId"});
-        }
-
         return res.status(200).json({success: true, message: "permission granted successful", access: true});
 
     } catch (error) {
