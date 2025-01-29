@@ -175,7 +175,7 @@ export const getBeneficiariesByPurpose = async (req, res) => {
       
         const totalCount = await User.countDocuments({ visit: { $gte: last24Hours } });
   
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: "Beneficiaries grouped by purpose",
             data: {
@@ -184,7 +184,7 @@ export const getBeneficiariesByPurpose = async (req, res) => {
             },
         });
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      return res.status(500).json({ success: false, message: error.message });
     }
   };
 
