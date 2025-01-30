@@ -109,10 +109,10 @@ export const getNewUser = async (req, res) => {
     try {
         const last24Hours = new Date();
         last24Hours.setHours(last24Hours.getHours() - 24);
+        // visit: {$gte: last24Hours},
 
         const usersFirstVisits = await User.find({ 
             $expr:{ $lt: [{ $size: "$lastVisit" },2]}, 
-            visit: {$gte: last24Hours},
         });
 
         const usersWithMultipleVisits = await User.find({
@@ -143,7 +143,7 @@ export const getBeneficiariesByPurpose = async (req, res) => {
         last24Hours.setHours(last24Hours.getHours() - 24);
 
         const groupedByPurpose = await User.aggregate([
-            { $match: { visit: { $gte: last24Hours } } },
+            // { $match: { visit: { $gte: last24Hours } } },
       
             { $unwind: "$purpose" },
 

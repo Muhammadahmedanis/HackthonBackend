@@ -5,6 +5,7 @@ import { Staff } from "../models/staff.model.js";
 export const createStaff = async (req, res) => {
     try {
         const {name, email, designation } = req.body
+        
         if([name, email, designation].some( (field) => typeof field !== "string" || field.trim() === "")){
             return res.status(400).send({success: false, message: "All fields are required"});
         }
